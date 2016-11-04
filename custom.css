@@ -8,20 +8,12 @@
     background: url(/wp-content/uploads/2016/10/fistsm.png)  no-repeat right;
     padding-right:30px;
 }
-.vw-menu-main-inner .main-menu-item:hover {
-    background: url(/wp-content/uploads/2016/10/fistsm-reg.png)  no-repeat right;
-    padding-right:30px;
-}
 
 @media all and (-webkit-min-device-pixel-ratio: .5) {
     .vw-menu-main-inner .main-menu-item {
         background: url(/wp-content/uploads/2016/10/fistsmret.png)  no-repeat right;
         background-size:30px 24px;
     
-    }
-    .vw-menu-main-inner .main-menu-item:hover {
-        background: url(/wp-content/uploads/2016/10/fistsmret-reg.png)  no-repeat right;
-        background-size:30px 24px;
     }
 }
 

@@ -7,9 +7,11 @@
 /* Fists in the menu */
 .vw-menu-main-inner .main-menu-item {
     background: url(/wp-content/uploads/2016/10/fistsm.png)  no-repeat right;
-    padding-right:30px;
+    padding-right:28px;
 }
-
+.vw-menu-main-inner .main-menu-item .main-menu-link{
+	padding: 15px 5px;
+}
 @media all and (-webkit-min-device-pixel-ratio: .5) {
     .vw-menu-main-inner .main-menu-item {
         background: url(/wp-content/uploads/2016/10/fistsmret.png)  no-repeat right;
@@ -18,8 +20,11 @@
     }
 }
 
-/* Main nav left align*/
+/* Main header left align center menu*/
 .vw-site-header .container {
 	margin-left: 0;
 	width: 100%;
+}
+.vw-menu-location-main{
+	text-align: center;	
 }

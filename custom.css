@@ -1,4 +1,3 @@
-
 /* Forcing the width of ads section in header to be a min of 468 */
 .vw-single-header-ads{
 	width:468px;
@@ -19,3 +18,8 @@
     }
 }
 
+/* Main nav left align*/
+.vw-site-header .container {
+	margin-left: 0;
+	width: 100%;
+}

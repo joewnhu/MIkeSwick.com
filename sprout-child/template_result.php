@@ -23,7 +23,7 @@ get_header(); ?>
 				
 				'orderby' => 'result_date','organization',	
 
-				'order' => ASC,		    
+				'order' => 'ASC',		    
 
 			    'post_status' => 'publish',
 

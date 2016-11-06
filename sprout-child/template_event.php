@@ -11,19 +11,31 @@ get_header(); ?>
 			<div class="vw-page-content" role="main">
 			<?php
 				$url = home_url(add_query_arg(array(),$wp->request));
+
+
+				$id = substr ( $url , 51	  );
+
 			?>	
 
-			<?php  $event = get_query_var( 'event', 1 );  
+			<?php  $event = get_query_var( 'event', 1 );  ?>
+
+			 <!-- <h1> URL <?php echo $url; ?> </h1> 	
+			 <h1> Event id <?php echo $id; ?> </h1> 
+			 <h1> event <?php echo $event; ?> </h1> -->
+
+			<?php
  
+
+
 			  $args = array(
 
-			    'post_type' => 'Fight Events',
+			    'post_type' => 'Result',
 
-			    'meta_key' => 'id',
+			    'meta_key' => id,
 
 			    'meta_value' => $event,
 
-				'order' => 'ASC',		    
+				'order' => ASC,		    
 
 			    'post_status' => 'publish',
 
@@ -31,17 +43,19 @@ get_header(); ?>
 
 			  );
 
-			  $result_loop = new WP_Query( $args );
+			  $gym_loop = new WP_Query( $args );
 
-			  if ( $result_loop->have_posts() ) :
+			  if ( $gym_loop->have_posts() ) :
 
 				do_action( 'vw_action_before_single_post' ); 
 
-			    while ( $result_loop->have_posts() ) : $result_loop->the_post();
+			    while ( $gym_loop->have_posts() ) : $gym_loop->the_post();
 
 			      // Set variables
 
 			      $title = get_the_title();
+
+			      $id = get_field('id');
 
 			      $description = get_the_content();
 
@@ -67,20 +81,26 @@ get_header(); ?>
 
 			      <div class=”product”>
 
-					<h2><?php echo $title; ?></h2>
-			        <h2><?php echo $result_location; ?></h2>
-			        <h2><?php echo $result_date; ?></h2>
+					<p><h2><?php echo $title; ?></h2></p>
+			        <div><h2><?php echo $result_location; ?></h2></div>
+			        <div><h2><?php echo $result_date; ?></h2></div>
+
 
 			        <?php 
 
-						$fight_poster = get_field('fight_poster');
+$fight_poster = get_field('fight_poster');
 
-						if( !empty($fight_poster) ): ?>
+if( !empty($fight_poster) ): ?>
 
-							<img src="<?php echo $fight_poster['url']; ?>" alt="<?php echo $fight_poster['alt']; ?>" />
+	<img src="<?php echo $fight_poster['url']; ?>" alt="<?php echo $fight_poster['alt']; ?>" />
 
-					<?php endif; ?>
-			        			       
+<?php endif; ?>
+			        
+
+			        
+
+							        
+
 			      <?php if( have_rows('fight_results') ): ?>
 
 					<ul class="slides">
@@ -88,8 +108,8 @@ get_header(); ?>
 	<?php while( have_rows('fight_results') ): the_row(); 
 
 		// vars
-		$winner = get_sub_field('fighter_a');
-		$loser = get_sub_field('fighter_b');
+		$winner = get_sub_field('winner');
+		$loser = get_sub_field('loser');
 		$method = get_sub_field('method');
 		$round = get_sub_field('round');
 		$time = get_sub_field('time');

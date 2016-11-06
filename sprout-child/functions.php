@@ -43,6 +43,26 @@ function register_custom_posts_result() {
     register_post_type('result', $result_args);
 }
 
+add_action('init', 'register_custom_posts_fight_events');
+
+function register_custom_posts_fight_events() {
+    // Register Results
+    $fight_event_labels = array(
+        'name'               => 'Fight Events',
+        'singular_name'      => 'Fight Event',
+        'menu_name'          => 'Fight Events'
+    );
+    $fight_event_args = array(
+        'labels'             => $fight_event_labels,
+        'public'             => true,
+        'capability_type'    => 'post',
+        'has_archive'        => true,
+        'supports'           => array( 'title', 'editor', 'excerpt', 'thumbnail', 'revisions' )
+    );
+    register_post_type('fight_events', $fight_event_args);
+}
+
+
 add_filter('acf/settings/show_admin', '__return_true');
 
 function add_query_vars_filter( $vars ){

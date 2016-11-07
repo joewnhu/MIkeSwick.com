@@ -65,7 +65,7 @@
 
 					<?php do_action( 'vw_action_before_archive_posts' ); ?>
 
-					<?php get_template_part( 'templates/post-loop/loop', vw_get_archive_blog_layout() ); ?>
+					<?php get_template_part( 'templates/post-loop/loop', 'classic-masonary' ); ?>
 
 					<?php do_action( 'vw_action_after_archive_posts' ); ?>
 

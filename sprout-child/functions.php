@@ -57,7 +57,9 @@ function register_custom_posts_fight_events() {
         'public'             => true,
         'capability_type'    => 'post',
         'has_archive'        => true,
-        'supports'           => array( 'title', 'editor', 'excerpt', 'thumbnail', 'revisions' )
+        'supports'           => array( 'title', 'editor', 'excerpt', 'thumbnail', 'revisions' ),
+        'rewrite'            => array('slug' => 'fight_events'),
+
     );
     register_post_type('fight_events', $fight_event_args);
 }

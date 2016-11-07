@@ -17,7 +17,7 @@ get_header(); ?>
  
 			  $args = array(
 
-			    'post_type' => 'Fight Events',
+			    'post_type' => 'fight_events',
 
 			    'meta_key' => 'id',
 

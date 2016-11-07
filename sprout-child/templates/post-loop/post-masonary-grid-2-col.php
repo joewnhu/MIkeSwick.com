@@ -18,7 +18,14 @@
 				<?php the_title(); ?>
 			</a>
 		</h3>
-
+		<?php 
+			$event_date = get_field('event_date');
+			$event_location = get_field('event_location');
+		 if($event_date && $event_location): ?>
+		<h4>
+			<?php echo $event_date; ?> <?php echo $event_location;?> 
+		</h4>
+	<?php endif; ?>
 	</div>
 	<div class="vw-post-box-inner col-sm-12">
 		<div class="vw-post-meta">

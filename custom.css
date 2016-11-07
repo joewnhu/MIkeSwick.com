@@ -20,6 +20,11 @@
     }
 }
 
+/*banner ad adjustments*/
+.vw-site-header .vw-single-header-ads {
+	height: 100px;
+}
+
 /* Main header left align center menu*/
 .vw-site-header .container {
 	margin-left: 0;

@@ -19,14 +19,25 @@ get_header(); ?>
 
 			  $args = array(
 
-			    'post_type' => 'fight_events',
-
-			    'meta_key' => 'event_organization',
-
-			    'meta_value' => '-other',
+			    'post_type' 		=> 'fight_events',
+			    'meta_sort_key' 	=> 'event_date',
+			    'orderby'			=> 'meta_sort_key',
+				'meta_query'		=> array(
+					'relation'		=> 'AND',
+					array(
+						'key'		=> 'event_results_completed',
+						'value'		=> true,
+						'compare'	=> 'LIKE'
+					)/*,
+					//hides non major orginizations
+					array(
+						'key'		=> 'event_organization',
+						'value'		=> 'other',
+						'compare'	=> 'NOT LIKE'
+					)*/
+				),
 				
 				'order' => 'ASC',		    
-
 			    'post_status' => 'publish',
 
 			    'posts_per_page' => '10'
@@ -47,15 +58,11 @@ get_header(); ?>
 
 			      $description = get_the_content();
 
-			      $result_date = get_field('result_date');
+			      $result_date = get_field('event_date');
 
-			      $result_name = get_field('result_name');
+			      $result_organization = get_field('event_organization');
 
-			      $result_featured = get_field('result_featured');
-
-			      $result_organization = get_field('result_organization');
-
-			      $result_main_card = get_field('result_main_card');
+			      $result_main_card = get_field('fight_card');
 
 			      $featured_image = wp_get_attachment_image_src( get_post_thumbnail_id(), 'full' );
 
@@ -67,13 +74,15 @@ get_header(); ?>
 
 			      ?>
 
-			      <div class=”product”>
+				<div class="vw-post-loop vw-post-loop-classic">	
+					<div class="row">
+						<div class="col-sm-12 vw-post-loop-inner">
+							
+								<?php get_template_part( 'templates/post-loop/post-masonary-grid-2-col', get_post_format() ); ?>
 
-					<h2><a href="http://localhost/mikeswickcom/fight-results/event?event=<?php echo $id; ?>" ><?php echo $title; ?> - <?php echo $result_date; ?></a></h2>			        
-
-			      </div>
-
-			      
+						</div>
+					</div>
+				</div>		      
 
 			      <?php endwhile;?>
 

@@ -10,9 +10,6 @@
 
 					<?php do_action( 'vw_action_before_single_post' ); ?>
 
-<?php if ( function_exists('yoast_breadcrumb') ) {
-yoast_breadcrumb('<p id="breadcrumbs">','</p>');
-} ?>
 					
 					<?php while ( have_posts() ) : the_post(); ?>
 

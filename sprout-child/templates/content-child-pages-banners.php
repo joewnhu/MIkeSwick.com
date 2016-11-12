@@ -15,11 +15,11 @@
   <?php if($result_loop->have_posts()) : ?>
   <div class="vw-post-loop vw-post-loop-classic">	
 		<div class="row">
-			<div class="col-sm-12 vw-post-loop-inner">
+			<div class="vw-post-loop-inner vw-block-grid vw-block-grid-xs-1 vw-block-grid-sm-2">
 				<?php do_action( 'vw_action_before_single_post' ); 
 			    while ( $result_loop->have_posts() ) :  $result_loop->the_post();?>
-					<div class="vw-block-grid-item col-sm-6">
-						<div class="vw-post-box vw-post-style-block vw-post-style-masonry <?php vw_the_post_format_class(); ?>" <?php vw_itemtype('Article'); ?>>
+					<div class="vw-block-grid-item">
+						<div class="vw-post-box <?php vw_the_post_format_class(); ?>" <?php vw_itemtype('Article'); ?>>
 								<h2 class="entry-title" <?php vw_itemprop('headline'); ?>>
 									<a href="<?php the_permalink(); ?>" class="" <?php vw_itemprop('url'); ?>>
 										<?php the_title(); ?>

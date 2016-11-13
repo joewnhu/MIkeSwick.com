@@ -14,19 +14,22 @@ get_header(); ?>
 			?>	
 
 			<?php  $event = get_query_var( 'event', 1 );  
- 
-			  $args = array(
+				$args = array(
 
-			    'post_type' => 'fight_events',
-
-			    'meta_key' => 'id',
-
-			    'meta_value' => $event,
-
+			    'post_type'		=> 'fight_events',
+			    'meta_key'		=> 'id',
+			    'meta_value'	=> $event,
+		    	'meta_query'	=> array(
+					'relation'		=> 'AND',
+					array(
+						'key'		=> 'event_results_completed',
+						'value'		=> true,
+						'compare'	=> 'LIKE'
+					)
+					
+				),
 				'order' => 'ASC',		    
-
 			    'post_status' => 'publish',
-
 			    'posts_per_page' => '10'
 
 			  );

@@ -1,4 +1,7 @@
 <?php
+
+require_once(get_stylesheet_directory().'/inc/extend-simple-composer.php');
+
 add_action( 'wp_enqueue_scripts', 'enqueue_parent_styles' );
 
 function enqueue_parent_styles() {

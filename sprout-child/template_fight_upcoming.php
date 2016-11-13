@@ -18,7 +18,7 @@ get_header(); ?>
 				<?php
 	 
 				$paged = vw_get_paged();
-
+				$currentDate = date('Ymd');
 				$args = array(
 
 				    'post_type' 		=> 'fight_events',
@@ -36,7 +36,13 @@ get_header(); ?>
 							'key'		=> 'event_organization',
 							'value'		=> 'other',
 							'compare'	=> 'NOT LIKE'
-						)
+						),
+						array(
+							'key'		=> 'event_date',
+							'value'		=> $currentDate,
+							'compare'	=> '>',
+							'type'		=> 'NUMERIC'
+						),
 					),
 					
 					'order' 			=> 'ASC',		    

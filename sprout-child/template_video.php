@@ -16,7 +16,7 @@ get_header(); ?>
 							<h1 class="entry-title" <?php vw_itemprop('headline'); ?>><?php the_title(); ?></h1>
 						</div>
 					</div>
-						<?php get_template_part( 'templates/content-child-pages-banners', get_post_format() ); ?>
+						<?php $get_template_part( 'templates/content-child-pages-banners', get_post_format() ); ?>
 					<?php //vw_the_post_footer_sections(); ?>
 
 				<?php endif; ?>

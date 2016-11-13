@@ -2,7 +2,7 @@
 	<?php $colClass = 'col-sm-12' ?>
 	<?php if ( has_post_thumbnail() ) : $colClass="col-sm-8"?>
 		<div class="col-sm-4">
-			<a class="vw-post-box-thumbnail<?php echo " ".$colClass ?>" href="<?php echo esc_url( get_permalink() ); ?>" rel="bookmark">
+			<a class="vw-post-box-thumbnail" href="<?php echo esc_url( get_permalink() ); ?>" rel="bookmark">
 				<?php the_post_thumbnail( VW_CONST_THUMBNAIL_SIZE_POST_MASONRY ); ?>
 				<?php vw_the_post_format_icon(); ?>
 				<?php vw_the_review_summary_bar(); ?>
@@ -23,7 +23,7 @@
 			$event_location = get_field('event_location');
 		 if($event_date && $event_location): ?>
 		<h4>
-			<?php echo $event_date; ?> <?php echo $event_location;?> 
+			<?php echo date('F d, Y', strtotime($event_date)); ?> <?php echo $event_location;?> 
 		</h4>
 	<?php endif; ?>
 	</div>

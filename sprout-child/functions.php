@@ -58,25 +58,6 @@ function register_custom_posts_init() {
     register_post_type('gym', $gym_args);
 }
 
-add_action('init', 'register_custom_posts_result');
-
-function register_custom_posts_result() {
-    // Register Results
-    $result_labels = array(
-        'name'               => 'Result',
-        'singular_name'      => 'Result',
-        'menu_name'          => 'Result'
-    );
-    $result_args = array(
-        'labels'             => $result_labels,
-        'public'             => true,
-        'capability_type'    => 'post',
-        'has_archive'        => true,
-        'supports'           => array( 'title', 'editor', 'excerpt', 'thumbnail', 'revisions' )
-    );
-    register_post_type('result', $result_args);
-}
-
 add_action('init', 'register_custom_posts_fight_events');
 
 function register_custom_posts_fight_events() {

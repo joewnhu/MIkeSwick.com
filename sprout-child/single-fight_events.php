@@ -46,7 +46,7 @@
 							      $result_image1 = $featured_image[0];
 
 							?>
-							<h2><?php echo $result_date; ?>  <?php  echo $result_location;  ?> </h2>
+							<h2><?php echo date('F d, Y', strtotime($result_date)); ?>  <?php  echo $result_location;  ?> </h2>
 
 							<?php if($fight_poster): ?>
 								<img src="<?php echo $fight_poster['url']; ?>" alt="<?php the_title(); ?>" />
@@ -77,7 +77,6 @@
 
 					<?php do_action( 'vw_action_after_single_post' ); ?>
 
-					<?php vw_the_post_footer_sections(); ?>
 
 				<?php endif; ?>
 

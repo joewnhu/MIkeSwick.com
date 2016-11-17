@@ -49,6 +49,14 @@ Template: sprout
 	text-align: center;	
 }
 
+/* Load fonts */
+
+@font-face {
+	font-family: 'custom_font_1';
+	src: url( '/wp-content/uploads/2016/11/ABAKANBRegular.ttf' ) format('truetype'),url( '/wp-content/uploads/2016/11/ABAKANBRegular.woff' ) format('woff'),url( '/wp-content/uploads/2016/11/ABAKANBRegular.svg' ) format('svg'),url( '/wp-content/uploads/2016/11/ABAKANBRegular-1.eot' ) format('embedded-opentype');
+}
+
+
 /* Make headings smaller */
 @media (min-width: 768px){
 	.vw-main-post .entry-title {
@@ -59,6 +67,13 @@ Template: sprout
 	  font-size: 32px;
 }
 
+/* Reducing Social Media follower counts */
+.vw-social-counter-count{
+	font-size: 1.4em;
+    padding-top: .6em;
+}
+
+/* Temporarily hiding likes, shares and comments */
 .vw-post-likes-number, .vw-post-comment-number, .vw-post-share-number{
 	display:none;
 }

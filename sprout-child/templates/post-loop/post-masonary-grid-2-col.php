@@ -11,17 +11,25 @@
 	<?php endif; ?>
 
 	<div class="vw-post-box-inner <?php echo $colClass ?>">
-		
-		<?php vw_the_category(); ?>
+				
+		<?php 
+			$gym_address 		= get_field('gym_address_line_1')." ".get_field('gym_address_line_2');
+			$gym_city 			= get_field('gym_city');
+			$gym_country 		= get_field('gym_country');
+			$gym_state 			= get_field('gym_state');
+			$gym_website		= get_field('gym_website');
+			$gym_phone_number	= get_field('gym_phone_number');
+			$gym_email			= get_field('gym_email');
+			$gym_featured		= get_field('gym_featured');
+			$gym_top_ten		= get_field('gym_top_ten'); ?>
+
 		<h3 class="vw-post-box-title" <?php vw_itemprop('headline'); ?>>
-			<a href="<?php the_permalink(); ?>" class="" <?php vw_itemprop('url'); ?>>
+			<a href="<?php echo $gym_website; ?>" target="<?php str_replace(' ', '', the_title()); ?>" class="" <?php vw_itemprop('url'); ?>>
 				<?php the_title(); ?>
 			</a>
-		</h3>
-		<?php 
-			$event_date = get_field('event_date');
-			$event_location = get_field('event_location');
-		 if($event_date && $event_location): ?>
+		</h3>	
+
+		 <?php if($event_date && $event_location): ?>
 		<h4>
 			<?php echo date('F d, Y', strtotime($event_date)); ?> <?php echo $event_location;?> 
 		</h4>
@@ -29,26 +37,9 @@
 	</div>
 	<div class="vw-post-box-inner col-sm-12">
 		<div class="vw-post-meta">
-			<span class="vw-post-author" <?php vw_itemprop('author'); vw_itemtype('Person'); ?>>
-				<?php vw_the_author_avatar( null, VW_CONST_AVATAR_SIZE_SMALL ); ?>
-
-				<a class="author-name" href="<?php echo get_author_posts_url(get_the_author_meta( 'ID' )); ?>" title="<?php _e('Posts by', 'envirra'); ?> <?php the_author(); ?>" rel="author" <?php vw_itemprop('name'); ?>><?php the_author(); ?></a>
-			</span>
-
-			<span class="vw-post-meta-separator">&middot;</span>
-
-			<?php vw_the_post_date(); ?>
+			
 		</div>
 		
-		<div class="vw-post-box-excerpt"><?php the_excerpt(); ?></div>
-	</div>
-
-	<div class="vw-post-box-footer vw-header-font col-sm-12">
-
-		<a href="<?php the_permalink(); ?>" class="vw-post-box-read-more"><span><?php _e( 'Read More', 'envirra' ); ?></span> <i class="vw-icon icon-iconic-right-circle"></i></a>
-		
-		<?php vw_the_post_share_icons(); ?>
-
 	</div>
 	
 </div>

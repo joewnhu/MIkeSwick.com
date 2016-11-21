@@ -46,16 +46,30 @@ function register_custom_posts_init() {
     $gym_labels = array(
         'name'               => 'Gym',
         'singular_name'      => 'Gym',
-        'menu_name'          => 'Gym'
+        'menu_name'          => 'Gyms'
     );
     $gym_args = array(
         'labels'             => $gym_labels,
         'public'             => true,
         'capability_type'    => 'post',
         'has_archive'        => true,
+        'taxonomies'         => array( 'category' ),
         'supports'           => array( 'title', 'editor', 'excerpt', 'thumbnail', 'revisions' )
     );
     register_post_type('gym', $gym_args);
+}
+add_action( 'init', 'create_location_tax' );
+
+function create_location_tax() {
+    register_taxonomy(
+        'location',
+        'Gym',
+        array(
+            'label' => __( 'Location' ),
+            'rewrite' => false,
+            'hierarchical' => true,
+        )
+    );
 }
 
 add_action('init', 'register_custom_posts_fight_events');
@@ -87,3 +101,23 @@ function add_query_vars_filter( $vars ){
   return $vars;
 }
 add_filter( 'query_vars', 'add_query_vars_filter' );
+
+/* -----------------------------------------------------------------------------
+ * Adding extra slug for gym_locator page
+ * -------------------------------------------------------------------------- */
+
+// Register the variables that will be used as parameters on the url
+
+add_action('init', 'custom_rewrite_tag', 10, 0);
+function custom_rewrite_tag() {
+  add_rewrite_tag('%country_slug%', '([^&]+)');
+  add_rewrite_tag('%state_slug%', '([^&]+)');
+}
+
+// Build the rewrite rules, for the extra parameter
+add_action('init', 'custom_rewrite_rules', 10, 0);
+function custom_rewrite_rules() {
+    add_rewrite_rule('^gym-locator/([^/]*)/([^/]*)/?','index.php?page_id=431&country_slug=$matches[1]&state_slug=$matches[2]','top');
+    add_rewrite_rule('^gym-locator/([^/]*)/?','index.php?page_id=431&country_slug=$matches[1]','top');
+}
+

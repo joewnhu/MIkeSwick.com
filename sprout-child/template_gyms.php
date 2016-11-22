@@ -11,7 +11,6 @@ get_header();
 		<div class="row">
 
 			<div id="vw-page-content" class="vw-page-content" role="main">
-				<?php the_content(); ?>
 
 				<?php $perma = get_permalink();
  					if ( have_posts() ) : ?>
@@ -195,7 +194,8 @@ get_header();
 					    }
 					    asort($us_values);
 					?>
-					
+									<?php the_content(); ?>
+
 					 <div class="vw-post-loop vw-post-loop-classic">	
 						<div class="row">
 							<div class="col-sm-12 vw-post-loop-inner">

@@ -46,7 +46,7 @@ get_header();
 								)
 
 							),
-							'order' => 'DSC',		    
+							'order' => 'ASC',		    
 						    'post_status' => 'publish',
 						    'posts_per_page' => 15
 						);
@@ -96,7 +96,7 @@ get_header();
 									'compare'	=> 'LIKE'
 								)
 							),
-							'order' => 'DSC',		    
+							'order' => 'ASC',		    
 						    'post_status' => 'publish',
 						    'posts_per_page' => 15
 						);
@@ -120,7 +120,7 @@ get_header();
 						 <div class="vw-post-loop vw-post-loop-classic">	
 							<div class="row">
 								<div class="col-sm-12 vw-post-loop-inner">
-									<?php get_template_part( 'templates/post-loop/post-masonary-grid-2-col', get_post_format() ); ?>
+									<?php get_template_part( 'templates/post-loop/post-gym-listing-1-col', get_post_format() ); ?>
 								</div>
 							</div>
 						</div>

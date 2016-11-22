@@ -77,3 +77,11 @@ Template: sprout
 .vw-post-likes-number, .vw-post-comment-number, .vw-post-share-number{
 	display:none;
 }
+
+/* Reducing margin top on blog sections and side bar*/
+.vwspc-section{
+	margin-top: 22px;
+}
+.widget + .widget{
+	margin-top: 16px;	
+}

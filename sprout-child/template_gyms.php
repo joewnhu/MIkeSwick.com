@@ -11,7 +11,8 @@ get_header();
 		<div class="row">
 
 			<div id="vw-page-content" class="vw-page-content" role="main">
-				
+				<?php the_content(); ?>
+
 				<?php $perma = get_permalink();
  					if ( have_posts() ) : ?>
 				

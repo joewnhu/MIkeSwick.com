@@ -11,7 +11,6 @@
 			$gym_featured		= get_field('gym_featured');
 			$gym_top_ten		= get_field('gym_top_ten'); 
 			$colClass = 'col-sm-12';
-	 
 	 if ( has_post_thumbnail() ) : $colClass="col-sm-8"?>
 		<div class="col-sm-4">
 			<a class="vw-post-box-thumbnail" href="<?php echo $gym_website ?>" target="<?php echo str_replace(' ', '', the_title()); ?>" itemprop="url" original-title="Website">
@@ -24,19 +23,19 @@
 
 	<div class="vw-post-box-inner <?php echo $colClass ?>">
 
-		<h3 class="vw-post-box-title" <?php vw_itemprop('headline'); ?>>
+		<h2 class="vw-post-box-title" <?php vw_itemprop('headline'); ?>>
 			<a href="<?php echo $gym_website; ?>" target="<?php echo str_replace(' ', '', the_title()); ?>" class="" <?php vw_itemprop('url'); ?>>
 				<?php the_title(); ?>
 			</a>
-		</h3>	
+		</h2>	
 
-		<h4> <?php echo $gym_address. ' ' . $gym_city; if($gym_state){ echo ", " . $gym_state;}?></h4>
+		<p class="vw-post-box-title"> <?php echo $gym_address. ' ' . $gym_city; if($gym_state){ echo ", " . $gym_state;}?></p>
 			
 			<div class="vw-post-box-excerpt"><?php the_excerpt(); ?></div>
 	</div>
 	<div class="vw-post-box-inner col-sm-12">
 
-		<h4 class="vw-about-author-title"><span>Contact Info</span></h4>
+		<h3 class="vw-about-author-title"><span>Contact Info</span></h3>
 		<?php if($gym_phone_number || $gym_email || $gym_website) ?>
 		
 			<?php if($gym_email) : ?>

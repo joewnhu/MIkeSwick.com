@@ -54,10 +54,37 @@ function register_custom_posts_init() {
         'capability_type'    => 'post',
         'has_archive'        => true,
         'taxonomies'         => array( 'category' ),
-        'supports'           => array( 'title', 'editor', 'excerpt', 'thumbnail', 'revisions' )
+        'supports'           => array( 'title', 'editor', 'excerpt', 'thumbnail', 'revisions' ),
+        'rewrite'            => array('slug' => 'gym')
+
     );
     register_post_type('gym', $gym_args);
 }
+/* Adds country and state columns to gym editor */
+add_filter('manage_gym_posts_columns' , 'add_gym_columns');
+function add_gym_columns($columns) {
+    return array_merge($columns, 
+        array('gym_country' => __('Country'),
+                'gym_state' => __('State')
+        )
+    );
+}
+
+/* Adds meta data for country and state to the new columns in gym editor */
+add_action('manage_gym_posts_custom_column' , 'gym_custom_columns', 10, 2 );
+ 
+function gym_custom_columns( $column, $post_id ) {
+    switch ( $column ) {
+ 
+    case 'gym_country' :
+        echo get_field('gym_country', $post_id);
+        break;
+    case 'gym_state' :
+        echo get_field('gym_state', $post_id);
+        break;
+    }
+}
+
 add_action( 'init', 'create_location_tax' );
 
 function create_location_tax() {
@@ -117,7 +144,9 @@ function custom_rewrite_tag() {
 // Build the rewrite rules, for the extra parameter
 add_action('init', 'custom_rewrite_rules', 10, 0);
 function custom_rewrite_rules() {
-    add_rewrite_rule('^gym-locator/([^/]*)/([^/]*)/?','index.php?page_id=431&country_slug=$matches[1]&state_slug=$matches[2]','top');
-    add_rewrite_rule('^gym-locator/([^/]*)/?','index.php?page_id=431&country_slug=$matches[1]','top');
+  //   add_rewrite_rule('^gym-locator/([^/]+)/([^/]+)/page/([^/]d+)/?$','index.php?page_id=431&country_slug=$matches[1]&state_slug=$matches[2]&page=$matches[3]','top');
+    add_rewrite_rule('^gym-locator/([^/]+)/([^/]+)/?$','index.php?page_id=431&country_slug=$matches[1]&state_slug=$matches[2]','top');
+  //  add_rewrite_rule('^gym-locator/([^/]+)/page/([0-9]{1,})/?','index.php?page_id=431&country_slug=$matches[1]&page=2','top');
+    add_rewrite_rule('^gym-locator/([^/]+)/?$','index.php?page_id=431&country_slug=$matches[1]','top');
 }
 

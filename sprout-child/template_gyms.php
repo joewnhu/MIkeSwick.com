@@ -12,13 +12,13 @@ get_header();
 
 			<div id="vw-page-content" class="vw-page-content" role="main">
 
-				<?php $perma = get_permalink();
- 					if ( have_posts() ) : ?>
+			<?php $perma = get_permalink(); if ( have_posts() ) : ?>
 				
 				<?php global $wp_query;
 					$country ='';
 					$state = '';
 					$first = true;
+					$paged = vw_get_paged();
 
 					if (array_key_exists('country_slug', $wp_query->query_vars)){
 						$country = $wp_query->query_vars['country_slug'];
@@ -48,40 +48,38 @@ get_header();
 							),
 							'order' => 'ASC',		    
 						    'post_status' => 'publish',
-						    'posts_per_page' => 15
+						    'posts_per_page' => -1,
+						    'paged'			=> $paged
 						);
 						$us_loop = new WP_Query( $us_args ); 
-  						$GLOBALS['wp_query'] = $us_loop; 
-  						?>
+  						$GLOBALS['wp_query'] = $us_loop; ?>
 
-						
+					<?php do_action( 'vw_action_before_single_post' ); 
+				    if($us_loop->have_posts()) : while ( $us_loop->have_posts() ) :  $us_loop->the_post();?>
+						 <?php if($first): 
+							$gym_state = get_field_object('gym_state');
+							$gym_state = $gym_state['choices'][$state];
+						?>
+						 <div class="vw-page-title-box clearfix">
+								<div class="vw-page-title-box-inner">
+									<h1 class="entry-title" <?php vw_itemprop('headline'); ?>><?php echo $gym_state; ?></h1>
+								</div>
+							</div>
+							<?php $first = false;?>
+						<?php endif; ?>
 
-				<?php do_action( 'vw_action_before_single_post' ); 
-			    if($us_loop->have_posts()) : while ( $us_loop->have_posts() ) :  $us_loop->the_post();?>
-					 <?php if($first): 
-						$gym_state = get_field_object('gym_state');
-						$gym_state = $gym_state['choices'][$state];
-					?>
-					 <div class="vw-page-title-box clearfix">
-							<div class="vw-page-title-box-inner">
-								<h1 class="entry-title" <?php vw_itemprop('headline'); ?>><?php echo $gym_state; ?></h1>
+						 <div class="vw-post-loop vw-post-loop-classic">	
+							<div class="row">
+								<div class="col-sm-12 vw-post-loop-inner">
+									<?php get_template_part( 'templates/post-loop/post-gym-listing-1-col', get_post_format() ); ?>
+								</div>
 							</div>
 						</div>
-						<?php $first = false;?>
-					<?php endif; ?>
+				    <?php endwhile; else : ?>
+						<h1 class="entry-title" <?php vw_itemprop('headline'); ?>>No gyms listings for this area</h1>
+				    <?php endif;?>
 
-					 <div class="vw-post-loop vw-post-loop-classic">	
-						<div class="row">
-							<div class="col-sm-12 vw-post-loop-inner">
-								<?php get_template_part( 'templates/post-loop/post-gym-listing-1-col', get_post_format() ); ?>
-							</div>
-						</div>
-					</div>
-			    <?php endwhile; else : ?>
-					<h1 class="entry-title" <?php vw_itemprop('headline'); ?>No gyms listings for this area</h1>
-			    <?php endif;?>
-
-			    <?php wp_reset_postdata(); ?>
+				    <?php wp_reset_postdata(); ?>
 
 
 					<?php elseif($country != '') : ?>
@@ -98,7 +96,8 @@ get_header();
 							),
 							'order' => 'ASC',		    
 						    'post_status' => 'publish',
-						    'posts_per_page' => 15
+						    'posts_per_page' => -1,
+						    'paged'			=> $paged
 						);
 
 						$int_loop = new WP_Query( $int_args );
@@ -126,14 +125,32 @@ get_header();
 						</div>
 				    <?php endwhile; else : ?>
 						<h1 class="entry-title" <?php vw_itemprop('headline'); ?>No gyms listings for this area</h1>
-			    <?php endif;?>
-				<?php else :?>		
+				    <?php endif;?>
+					<?php else :?>		
 					<div class="vw-page-title-box clearfix">
 						<div class="vw-page-title-box-inner">
 							<h1 class="entry-title" <?php vw_itemprop('headline'); ?>><?php the_title(); ?></h1>
 						</div>
 					</div>
+					 <div class="vw-post-loop vw-post-loop-classic">	
+						<div class="row">
+								<div class="col-sm-12"><?php the_content(); ?></div>
 					<?php
+						$top_args = array(
+						    'post_type' 		=> 'gym',
+						    'orderby'			=> 'title',
+							'meta_query'		=> array(
+								'relation'		=> 'AND',
+								array(
+									'key'		=> 'gym_top_ten',
+									'value'		=> true,
+									'compare'	=> 'LIKE'
+								)
+							),
+							'order' => 'DSC',		    
+						    'post_status' => 'publish',
+						    'posts_per_page' => -1
+						);
 						$us_args = array(
 						    'post_type' 		=> 'gym',
 						    'orderby'			=> 'title',
@@ -164,6 +181,7 @@ get_header();
 						    'post_status' => 'publish',
 						    'posts_per_page' => -1
 						);
+						$top_loop = new WP_Query( $top_args );
 
 						$int_loop = new WP_Query( $int_args );
 						$int_values = array();
@@ -194,10 +212,17 @@ get_header();
 					    }
 					    asort($us_values);
 					?>
-									<?php the_content(); ?>
 
-					 <div class="vw-post-loop vw-post-loop-classic">	
-						<div class="row">
+
+								<?php while ($top_loop->have_posts() ) : $top_loop->the_post();?>
+									<?php if ( has_post_thumbnail() ) : ?>
+									<div class="col-sm-3">
+										<a class="vw-post-box-thumbnail" href="<?php echo esc_url( get_permalink() ); ?>" rel="bookmark">
+										<?php the_post_thumbnail( VW_CONST_THUMBNAIL_SIZE_POST_MASONRY ); ?>
+										</a>
+									</div>
+								<?php endif; ?>
+								<?php endwhile; ?>
 							<div class="col-sm-12 vw-post-loop-inner">
 								<div class="col-sm-5">
 									<h2>United States</h2>
@@ -224,9 +249,9 @@ get_header();
 						</div>
 					</div>
 					
-					<?php endif ?> 
+				<?php endif ?> 
 			
-				<?php endif; ?>
+			<?php endif; ?>
 
 				<?php vw_the_pagination( vw_get_theme_option( 'blog_default_pagination_style' ) ); ?>
 

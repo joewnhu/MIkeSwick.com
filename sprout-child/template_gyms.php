@@ -31,7 +31,8 @@ get_header();
 					<?php if($state != '') : ?>
 						<?php $us_args = array(
 						    'post_type' 		=> 'gym',
-						    'orderby'			=> 'title',
+						    'meta_key'			=> 'gym_featured',
+						    'orderby'			=> array( 'meta_value' => 'DESC', 'title' => 'ASC',  ),
 							'meta_query'		=> array(
 								'relation'		=> 'AND',
 								array(
@@ -85,7 +86,8 @@ get_header();
 					<?php elseif($country != '') : ?>
 						<?php $int_args = array(
 						    'post_type' 		=> 'gym',
-						    'orderby'			=> 'title',
+						    'meta_key'			=> 'gym_featured',
+						    'orderby'			=> array( 'meta_value' => 'DESC', 'title' => 'ASC',  ),
 							'meta_query'		=> array(
 								'relation'		=> 'AND',
 								array(
@@ -258,7 +260,7 @@ get_header();
 
 			</div>
 
-			<?php get_sidebar(); ?>
+			<?php get_sidebar( 'gym-locator'); ?>
 		
 		</div>
 	</div>

@@ -1,4 +1,3 @@
-<div class="vw-post-box col-sm-12 vw-post-style-block vw-block-grid-item vw-post-style-masonry <?php vw_the_post_format_class(); ?>" <?php vw_itemtype('Article'); ?>>
 	
 				
 		<?php 
@@ -10,8 +9,10 @@
 			$gym_email			= get_field('gym_email');
 			$gym_featured		= get_field('gym_featured');
 			$gym_top_ten		= get_field('gym_top_ten'); 
-			$colClass = 'col-sm-12';
-	 if ( has_post_thumbnail() ) : $colClass="col-sm-8"?>
+			$colClass = 'col-sm-12';?>
+	<div class="vw-post-box col-sm-12 <?php if($gym_featured){ echo 'featured-gym'; } ?> vw-post-style-block vw-block-grid-item vw-post-style-masonry <?php vw_the_post_format_class(); ?>" <?php vw_itemtype('Article'); ?>>
+
+	<?php if ( has_post_thumbnail() && ($gym_featured || $gym_top_ten)) : $colClass="col-sm-8"?>
 		<div class="col-sm-4">
 			<a class="vw-post-box-thumbnail" href="<?php echo $gym_website ?>" target="<?php echo str_replace(' ', '', the_title()); ?>" itemprop="url" original-title="Website">
 				<?php the_post_thumbnail( VW_CONST_THUMBNAIL_SIZE_POST_MASONRY ); ?>

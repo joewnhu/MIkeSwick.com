@@ -19,45 +19,67 @@
 							<?php vw_the_category(); ?>
 							
 							<h1 class="entry-title" <?php vw_itemprop('headline'); ?>><?php the_title(); ?></h1>
-							<span class="author vcard hidden"><span class="fn"><?php echo esc_attr( get_the_author() ); ?></span></span>
 							<span class="updated hidden" <?php vw_itemprop('datePublished'); ?>><?php echo esc_attr( get_the_date( 'Y-m-d' ) ); ?></span>
 							
 							<?php vw_the_post_meta_large() ?>
 
-							<?php if ( ! has_post_format() ) vw_the_featured_image(); ?>
+							<?php if ( ! has_post_format() ) vw_the_featured_image(VW_CONST_THUMBNAIL_SIZE_POST_MASONRY); ?>
 
 							<?php vw_the_embeded_media(); ?>
 
 							<?php
 
+							      $event_date = get_field('event_date');
 
-							      $result_date = get_field('event_date');
+							      $event_location = get_field('event_location');
 
-							      $result_location = get_field('event_location');
+							      $event_organization = get_field('event_organization');
+							      if($event_organization == 'Other'){ $event_organization =  get_field('event_organization_other'); };
+							      
+							      $event_complete = get_field('event_results_completed');
 
-							      $fight_poster = get_field('event_poster');
+							      $event_main_card = get_field('fight_card');
 
-							      $result_organization = get_field('event_organization');
+							      $event_outcome = '';
+							      $event_outcome_method = '';
+							      $event_outcome_round = '';
+							      $event_outcome_time = '';
 
-							      $result_main_card = get_field('fight_card');
-
-							      $featured_image = wp_get_attachment_image_src( get_post_thumbnail_id(), 'full' );
-
-							      $result_image1 = $featured_image[0];
+							      
 
 							?>
-							<h2><?php echo date('F d, Y', strtotime($result_date)); ?>  <?php  echo $result_location;  ?> </h2>
-
-							<?php if($fight_poster): ?>
-								<img src="<?php echo $fight_poster['url']; ?>" alt="<?php the_title(); ?>" />
-							<?php  endif; ?>
+							<h2><?php echo date('F d, Y', strtotime($event_date)); ?>  <?php  echo $event_location;  ?> </h2>
 							
-							<?php if($result_main_card) : ?>
-								<?php while(the_repeater_field('fight_card')): ?>
-									<ul>
-										<li></li>
-									</ul>	
-								<?php endwhile; ?>
+							<?php if($event_main_card) : ?>
+							<h3 class="vw-about-author-title"><span>Event Card</span></h3>
+									<?php while(the_repeater_field('fight_card')): 
+										if($event_complete){
+									      	$event_outcome = get_sub_field('outcome');
+									     	$event_outcome_method = get_sub_field('method');
+									     	$event_outcome_round = get_sub_field('round');
+									     	$event_outcome_time = get_sub_field('time');
+								      	}?>
+										<div class="row event-card">
+											<?php if(get_sub_field('weight_class')) : ?><h4><span><?php the_sub_field('weight_class'); ?></span></h4><?php endif; ?>
+											<?php $draw_class = ''; if($event_outcome == 'draw') { $draw_class = ' card-draw'; }?>
+											<div class="col-sm-5<?php if($event_outcome == 'a'): ?> card-winner<?php else :?> <?php echo $draw_class; ?><?php endif; ?>"><?php the_sub_field('fighter_a') ?></div>
+											<div class="col-sm-2">vs.</div>
+											<div class="col-sm-5<?php if($event_outcome == 'b'): ?> card-winner<?php else :?> <?php echo $draw_class; ?><?php endif; ?>"><?php the_sub_field('fighter_b') ?></div>
+										</div>
+										<?php if($event_outcome_method) :?>	
+											<div class="row event-card">
+												<div class="col-sm-12"> 
+													<?php echo $event_outcome_method; 
+													if($event_outcome_time){
+														echo ' at '.$event_outcome_time;
+														if($event_outcome_round){echo ' in round number '.$event_outcome_round.'.';}
+													}else{
+														if($event_outcome_round){echo ' after '.$event_outcome_round.' rounds.';}
+													}?> 
+												</div>
+											</div>
+										<?php endif;  ?>
+									<?php endwhile; ?>
 							<?php endif;?>
 							<div class="vw-post-content clearfix" <?php vw_itemprop('articleBody'); ?>><?php the_content(); ?></div>
 

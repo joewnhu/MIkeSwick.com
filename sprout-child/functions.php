@@ -150,3 +150,13 @@ function custom_rewrite_rules() {
     add_rewrite_rule('^gym-locator/([^/]+)/?$','index.php?page_id=431&country_slug=$matches[1]','top');
 }
 
+/* -----------------------------------------------------------------------------
+ * Adding favicon to admin area
+ * -----------------------------------------------------------------------------*/
+function add_favicon() {
+    $favicon_url = get_stylesheet_directory_uri() . '/admin-favicon.ico';
+    echo '<link rel="shortcut icon" href="' . $favicon_url . '" />';
+}
+  
+// Now, just make sure that function runs when you're on the login page and admin pages  
+add_action('admin_head', 'add_favicon');

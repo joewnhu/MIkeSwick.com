@@ -29,7 +29,7 @@ Template Name: Fight Results
 			)*/
 		),
 		
-		'order' => 'ASC',		    
+		'order' => 'DESC',		    
 	    'post_status' => 'publish',
 	    'posts_per_page' => 10,
 	    'paged' => $paged

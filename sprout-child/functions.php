@@ -113,6 +113,7 @@ function register_custom_posts_fight_events() {
         'public'             => true,
         'capability_type'    => 'post',
         'has_archive'        => true,
+        'taxonomies'         => array( 'category' ),
         'supports'           => array( 'title', 'editor', 'excerpt', 'thumbnail', 'revisions' ),
         'rewrite'            => array('slug' => 'fight_events'),
 
@@ -150,6 +151,7 @@ function custom_rewrite_rules() {
     add_rewrite_rule('^gym-locator/([^/]+)/?$','index.php?page_id=431&country_slug=$matches[1]','top');
 }
 
+
 /* -----------------------------------------------------------------------------
  * Adding favicon to admin area
  * -----------------------------------------------------------------------------*/
@@ -160,3 +162,26 @@ function add_favicon() {
   
 // Now, just make sure that function runs when you're on the login page and admin pages  
 add_action('admin_head', 'add_favicon');
+
+
+/* -----------------------------------------------------------------------------
+ * Adjusing login page 
+ * -------------------------------------------------------------------------- */
+
+function my_login_logo() { ?>
+    <style type="text/css">
+        #login{
+            width:500px !important;
+        }
+        #login h1 a, .login h1 a {
+            background-image: url(/wp-content/uploads/2016/11/mikeswick-logo-tag-retnia.png);
+            padding-bottom: 30px;
+            width:500px;
+            background-size:500px; 
+        }
+        body{
+            background-color: #fff !important;
+        }
+    </style>
+<?php }
+add_action( 'login_enqueue_scripts', 'my_login_logo' );

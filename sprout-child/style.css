@@ -95,9 +95,15 @@ Template: sprout
 .event-card{
 	text-align: center;
 }
-.event-card .card-winner{
+.event-card.event-outcome-a .fighter-a, .event-card.event-outcome-b .fighter-b{
 	background-color: #dff0d8;
 }
-.event-card .card-draw{
+.event-card .event-winner{
+	font-weight: bold;
+	display: block;
+	
+}
+
+.event-card.event-outcome-draw .card-fighter, .event-outcome-no_contest .card-fighter{
 	background-color: #f5f5f5;
 }

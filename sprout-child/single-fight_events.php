@@ -59,12 +59,11 @@
 									     	$event_outcome_round = get_sub_field('round');
 									     	$event_outcome_time = get_sub_field('time');
 								      	}?>
-										<div class="row event-card">
+										<div class="row event-card <?php if($event_outcome){echo "event-outcome-".$event_outcome;}?>">
 											<?php if(get_sub_field('weight_class')) : ?><h4><span><?php the_sub_field('weight_class'); ?></span></h4><?php endif; ?>
-											<?php $draw_class = ''; if($event_outcome == 'draw') { $draw_class = ' card-draw'; }?>
-											<div class="col-sm-5<?php if($event_outcome == 'a'): ?> card-winner<?php else :?> <?php echo $draw_class; ?><?php endif; ?>"><?php the_sub_field('fighter_a') ?></div>
+											<div class="col-sm-5 card-fighter fighter-a"><?php if($event_outcome == 'a'): ?> <span class="event-winner"><i class="icon-iconic-award"></i>Winner</span><?php endif; ?><span><?php the_sub_field('fighter_a') ?></span></div>
 											<div class="col-sm-2">vs.</div>
-											<div class="col-sm-5<?php if($event_outcome == 'b'): ?> card-winner<?php else :?> <?php echo $draw_class; ?><?php endif; ?>"><?php the_sub_field('fighter_b') ?></div>
+											<div class="col-sm-5 card-fighter fighter-b"><?php if($event_outcome == 'b'): ?> <span class="event-winner"><i class="icon-iconic-award"></i>Winner</span><?php endif; ?><span><?php the_sub_field('fighter_b') ?></span></div>
 										</div>
 										<?php if($event_outcome_method) :?>	
 											<div class="row event-card">
@@ -74,7 +73,7 @@
 														echo ' at '.$event_outcome_time;
 														if($event_outcome_round){echo ' in round number '.$event_outcome_round.'.';}
 													}else{
-														if($event_outcome_round){echo ' after '.$event_outcome_round.' rounds.';}
+														if($event_outcome_round){echo ' after '.$event_outcome_round.' round(s).';}
 													}?> 
 												</div>
 											</div>

@@ -12,8 +12,8 @@ Template Name: Fight Results
 	$args = array(
 
 	    'post_type' 		=> 'fight_events',
-	    'meta_sort_key' 	=> 'event_date',
-	    'orderby'			=> 'meta_sort_key',
+	    'meta_key' 	=> 'event_date',
+	    'orderby'			=> 'meta_value',
 		'meta_query'		=> array(
 			'relation'		=> 'AND',
 			array(
